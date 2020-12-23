@@ -47,6 +47,7 @@ const createProject = () => {
   const imgHTML = document.createElement('img');
   const imgCSS = document.createElement('img');
   const imgJS = document.createElement('img');
+
   const pEl = document.createElement('p');
 
   addClass(liEl, 'project');
@@ -118,8 +119,8 @@ const validateForm = form => {
       alertMessage.firstElementChild.firstElementChild.textContent =
         'Your project has been successfully added';
       createProject();
+      resetForm('Reset Project');
       goToTop();
-      resetForm();
     } else {
       removeClass(alertMessage, 'hidden');
       addClass(alertMessage, 'warning');
@@ -136,6 +137,7 @@ const validateForm = form => {
       removeClass(alertMessage, 'hidden', 'warning');
       addClass(alertMessage, 'success');
       alertMessage.firstElementChild.firstElementChild.textContent = `${studentName} was added to the project: ${projectName}.`;
+      resetForm('Reset Invitees');
       goToTop();
     } else {
       removeClass(alertMessage, 'hidden');
@@ -148,11 +150,17 @@ const validateForm = form => {
 };
 
 // Reset form after the submission
-const resetForm = () => {
-  projectNameInput.value = '';
-  projectDetailsInput.value = '';
-  projectJSCheckbox.checked = false;
-  projectCSSCheckbox.checked = false;
+const resetForm = form => {
+  if (form === 'Reset Project') {
+    projectNameInput.value = '';
+    projectDetailsInput.value = '';
+    projectJSCheckbox.checked = false;
+    projectCSSCheckbox.checked = false;
+  }
+
+  if (form === 'Reset Invitees') {
+    studentNameInput.value = '';
+  }
 };
 
 // Event Listeners
